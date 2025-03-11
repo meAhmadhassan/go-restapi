@@ -1,5 +1,0 @@
-env: "dev"
-storage_path: "storage/restapi_db.db"
-http_server:
-  address: "localhost:8001"
-
