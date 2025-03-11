@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/meahmadhassan/go-restapi/internal/config"
+	"github.com/meahmadhassan/go-restapi/internal/http/handlers/student"
 )
 
 func main() {
@@ -23,9 +24,7 @@ func main() {
 	// route setup
 	router := http.NewServeMux()
 
-	router.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request){
-		w.Write([]byte("Restapi home"))
-	})
+	router.HandleFunc("POST /api/students", student.New())
 
 	// setup server http
 	server := http.Server {

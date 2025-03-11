@@ -32,7 +32,7 @@ go run cmd/main.go -config config/local.yaml
 ## Install the packages
 ```
 go get -u github.com/ilyakaznacheev/cleanenv
-
+go get github.com/go-playground/validator/v10
 ```
 
 
