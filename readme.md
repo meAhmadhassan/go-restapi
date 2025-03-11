@@ -26,7 +26,7 @@ go mod init github.com/username/reponame
 ## Run the Go Project  
 Use the following command to run your Go application:  
 ```sh
-go run cmd/main.go
+go run cmd/main.go -config config/local.yaml
 ```
 
 ## Install the packages
@@ -34,3 +34,5 @@ go run cmd/main.go
 go get -u github.com/ilyakaznacheev/cleanenv
 
 ```
+
+
