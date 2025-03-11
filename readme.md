@@ -26,5 +26,11 @@ go mod init github.com/username/reponame
 ## Run the Go Project  
 Use the following command to run your Go application:  
 ```sh
-go run restapi/main.go
+go run cmd/main.go
+```
+
+## Install the packages
+```
+go get -u github.com/ilyakaznacheev/cleanenv
+
 ```
