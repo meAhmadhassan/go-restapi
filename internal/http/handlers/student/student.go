@@ -11,25 +11,26 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/meahmadhassan/go-restapi/internal/types"
 	"github.com/meahmadhassan/go-restapi/internal/utils/response"
+	"github.com/meahmadhassan/go-restapi/storage"
 )
 
-func New() http.HandlerFunc {
+func New(storage storage.Storage) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("Creating a student")
 		var student types.Student
-
+		
 		err := json.NewDecoder(r.Body).Decode(&student)
-
+		
 		if errors.Is(err, io.EOF) {
 			response.WriteJson(w, http.StatusBadRequest, response.GeneralError(fmt.Errorf("empty body")))
 			return
 		}
-
+		
 		if err != nil {
 			response.WriteJson(w, http.StatusBadRequest, response.GeneralError(err))
 			return
 		}
-
+		
 		// validate data to make sure request data is authentic and validated
 		if err := validator.New().Struct(student); err != nil {
 			validateErrs := err.(validator.ValidationErrors)
@@ -37,7 +38,22 @@ func New() http.HandlerFunc {
 			return
 		}
 
-		response.WriteJson(w, http.StatusCreated, map[string]string{"success": "OK"})
+		lastId, err := storage.CreateStudent(
+			student.Name,
+			student.Email,
+			student.Age,
+		)
+		// fmt.Println("Last ID:", lastId, "Error:", err)
+
+		if err != nil {
+			response.WriteJson(w, http.StatusInternalServerError, err)
+			return
+		}
+
+		slog.Info("user created successfully", slog.String("userId", fmt.Sprint(lastId)))
+
+		response.WriteJson(w, http.StatusCreated, map[string]int64{"id":lastId})
 
 	}
 }
+
