@@ -12,6 +12,7 @@ import (
 
 	"github.com/meahmadhassan/go-restapi/internal/config"
 	"github.com/meahmadhassan/go-restapi/internal/http/handlers/student"
+	"github.com/meahmadhassan/go-restapi/storage/sqlite"
 )
 
 func main() {
@@ -20,6 +21,12 @@ func main() {
 	// custom log if needed
 
 	// database setup
+	_, err := sqlite.New(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	slog.Info("storage initialized", slog.String("env", cfg.Env), slog.String("version", "1.0.0"))
 
 	// route setup
 	router := http.NewServeMux()

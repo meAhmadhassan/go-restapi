@@ -33,6 +33,9 @@ go run cmd/main.go -config config/local.yaml
 ```
 go get -u github.com/ilyakaznacheev/cleanenv
 go get github.com/go-playground/validator/v10
+go get github.com/mattn/go-sqlite3
+
+
 ```
 
 
