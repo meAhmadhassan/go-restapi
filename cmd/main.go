@@ -35,6 +35,7 @@ func main() {
 	router.HandleFunc("GET /api/students/{id}", student.GetById(storage))
 	router.HandleFunc("GET /api/students/", student.GetStudentsList(storage))
 	router.HandleFunc("DELETE /api/students/{id}", student.DeleteStudentById(storage))
+	router.HandleFunc("PUT /api/students/{id}", student.UpdateStudentById(storage))
 
 	// setup server http
 	server := http.Server {
